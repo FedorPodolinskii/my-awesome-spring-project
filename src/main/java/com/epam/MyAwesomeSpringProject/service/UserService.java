@@ -2,12 +2,13 @@ package com.epam.MyAwesomeSpringProject.service;
 import com.epam.MyAwesomeSpringProject.entity.User;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface UserService {
 
     boolean signUp(User user);
 
-    boolean signIn(User user);
+    Optional<Long> signIn(User user);
 
     User getUserById(Long id);
 

@@ -48,6 +48,13 @@
 			<artifactId>h2</artifactId>
 			<scope>runtime</scope>
 		</dependency>
+		<dependency>
+			<groupId>org.SpringProject</groupId>
+			<artifactId>LegacyModule</artifactId>
+			<version>1.0-SNAPSHOT</version>
+			<scope>system</scope>
+			<systemPath>${project.basedir}/src/main/resources/LegacyModule-1.0-SNAPSHOT.jar</systemPath>
+		</dependency>
 	</dependencies>
 
 	<dependencyManagement>

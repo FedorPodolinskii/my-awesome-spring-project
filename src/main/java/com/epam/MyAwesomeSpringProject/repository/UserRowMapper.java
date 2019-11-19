@@ -10,8 +10,20 @@ public class UserRowMapper implements RowMapper<User> {
 
     public User mapRow(ResultSet resultSet, int i) throws SQLException {
         long id = resultSet.getLong("ID");
-        String name = resultSet.getString("NAME");
-        String surname = resultSet.getString("SURNAME");
-        return User.builder().id(id).name(name).surname(surname).build();
+        String email = resultSet.getString("email");
+        String password = resultSet.getString("password");
+        String firstName = resultSet.getString("first_name");
+        String lastName = resultSet.getString("last_name");
+        String subscription = resultSet.getString("subscription");
+        String userRole = resultSet.getString("user_role");
+        return User.builder()
+                .id(id)
+                .email(email)
+                .password(password)
+                .firstName(firstName)
+                .lastName(lastName)
+                .subscription(subscription)
+                .role(userRole)
+                .build();
     }
 }

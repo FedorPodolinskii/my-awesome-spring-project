@@ -1,8 +1,8 @@
 package com.epam.MyAwesomeSpringProject.aspects;
 
-import com.epam.entity.User;
-import com.epam.exeptions.NoSubException;
-import com.epam.service.TaskServiceImpl;
+import com.epam.MyAwesomeSpringProject.entity.User;
+import com.epam.MyAwesomeSpringProject.exeptions.NoSubException;
+import com.epam.MyAwesomeSpringProject.service.TaskServiceImpl;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -29,6 +29,6 @@ public class SubscriptionCheckAspect {
         if (user.getSubscription().equals(DigestUtils.md5DigestAsHex(("secret".getBytes()))) && tasks.size() < 10) {
             return joinPoint.proceed();
         }
-        throw new NoSubException(user.getName() + " not subscribed, can't create more than 10 tasks");
+        throw new NoSubException(user.getFirstName() + " not subscribed, can't create more than 10 tasks");
     }
 }

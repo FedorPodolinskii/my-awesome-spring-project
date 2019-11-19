@@ -1,5 +1,6 @@
 package com.epam.MyAwesomeSpringProject.conifg;
 
+import com.epam.legacy.VerifyRole;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Value;

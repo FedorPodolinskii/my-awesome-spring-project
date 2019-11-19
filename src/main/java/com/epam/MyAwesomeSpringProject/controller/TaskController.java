@@ -3,6 +3,7 @@ package com.epam.MyAwesomeSpringProject.controller;
 import com.epam.MyAwesomeSpringProject.entity.Priority;
 import com.epam.MyAwesomeSpringProject.entity.Task;
 import com.epam.MyAwesomeSpringProject.service.TaskService;
+import com.epam.MyAwesomeSpringProject.subscribtion.AuthService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,23 +17,19 @@ import java.util.List;
 @RequestMapping("/task")
 @RequiredArgsConstructor
 public class TaskController {
-
-    @Autowired
-    public TaskController(TaskService taskService) {
-        this.taskService = taskService;
-    }
-
     private TaskService taskService;
+    private final AuthService authService;
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public long createTask(@RequestBody Task task, long userId) {
-        return taskService.create(task, userId);
+       return taskService.create(task, authService.getUserId());
     }
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public long deleteTask(@PathVariable long id) {
+        authService.checkAuthentication();
         return taskService.delete(id);
     }
 
@@ -51,9 +48,9 @@ public class TaskController {
         return taskService.priorityChange(id, priority);
     }
 
-    @GetMapping("/allByUser/{userId}")
-    public List<Task> getTasksByUser(@PathVariable long userId) {
-        return taskService.getTasksByUser(userId);
+    @GetMapping
+    public List<Task> getTasksByUser() {
+        return taskService.getTasksByUser(authService.getUserId());
     }
 
     @GetMapping("/all")

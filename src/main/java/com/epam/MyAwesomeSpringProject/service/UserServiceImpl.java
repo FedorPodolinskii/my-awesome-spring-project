@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service("userService")
 public class UserServiceImpl implements UserService {
@@ -24,7 +25,7 @@ public class UserServiceImpl implements UserService {
             return true;
     }
 
-    public boolean signIn(User user) {
+    public Optional<Long> signIn(User user) {
         return userRepo.findUserIdByEmailAndPassword(user.getEmail(), user.getPassword());
     }
 
