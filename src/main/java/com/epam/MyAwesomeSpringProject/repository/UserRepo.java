@@ -1,11 +1,10 @@
 package com.epam.MyAwesomeSpringProject.repository;
 
-
 import com.epam.MyAwesomeSpringProject.entity.User;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;
 
-public interface UserRepo extends GenericRepo<User, Long> {
-    Optional<Long> findUserIdByEmailAndPassword(String email, String password);
-    void setSubscriptionByUserId(Long userId, String subscription);
+public interface UserRepo extends JpaRepository<User, Long> {
+    Optional<User> findByEmail(String email);
 }

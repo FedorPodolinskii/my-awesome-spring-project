@@ -1,17 +1,23 @@
 package com.epam.MyAwesomeSpringProject.entity;
 
 import lombok.*;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import java.sql.Blob;
 import java.util.Objects;
 
 @Getter
 @Setter
-@Data
+@Entity
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 public class Task {
-
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     @NonNull
     private Long userId;
@@ -42,6 +48,14 @@ public class Task {
         this.completeness = completeness;
         this.priority = Priority.LOW;
         this.file = file;
+    }
+
+    public Task(Long userId, String name, String text, boolean completeness, Priority priority) {
+        this.userId = userId;
+        this.name = name;
+        this.text = text;
+        this.completeness = completeness;
+        this.priority = priority;
     }
 
     @Override

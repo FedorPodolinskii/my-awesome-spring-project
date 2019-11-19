@@ -7,22 +7,12 @@ import java.util.List;
 
 public interface TaskService {
 
-    long create(Task task, long userId);
+    void createTask(Long userId, String taskName);
+    void deleteTask(Long taskId);
+    List<Task> findAllTasksByUser(Long userId);
+    void closeTask(Long taskId);
+    void openTask(Long taskId);
 
-    long delete(long id);
-
-    Boolean setTaskComplete(long id);
-
-    Boolean setTaskIncomplete(long id);
-
-    long priorityChange(long id, Priority priority);
-
-    List<Task> getTasksByUser(long userId);
-
-    Task getById(Long id);
-
-    long update(Task object);
-
-    List<Task> getAll();
+    void setTaskPriorityByTaskId(Long taskId, Priority taskPriority);
 
 }

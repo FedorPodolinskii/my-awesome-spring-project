@@ -2,58 +2,75 @@ package com.epam.MyAwesomeSpringProject.service;
 
 import com.epam.MyAwesomeSpringProject.entity.Priority;
 import com.epam.MyAwesomeSpringProject.entity.Task;
-import com.epam.MyAwesomeSpringProject.repository.TaskRepoImpl;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.epam.MyAwesomeSpringProject.exeptions.NotFoundException;
+import com.epam.MyAwesomeSpringProject.entity.User;
+import com.epam.MyAwesomeSpringProject.repository.TaskRepo;
+import com.epam.MyAwesomeSpringProject.subscribtion.AuthService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service("taskService")
+@RequiredArgsConstructor
 public class TaskServiceImpl implements TaskService {
+    private final TaskRepo taskRepo;
+    private final AuthService authService;
+    private final UserService userService;
 
-    @Autowired
-    public TaskServiceImpl(TaskRepoImpl taskRepo) {
-        this.taskRepo = taskRepo;
+    @Override
+    public void createTask(Long userId, String taskName) {
+        Task task = new Task(userId, taskName," ", true, Priority.LOW);
+        taskRepo.save(task);
     }
 
-    private TaskRepoImpl taskRepo;
-
-    public long create(Task task, long userId) {
-        task.setUserId(userId);
-        return taskRepo.create(task);
+    @Override
+    public void deleteTask(Long taskId) {
+        Long userId = authService.getUserId();
+        User user = userService.getUserById(userId);
+        taskRepo.deleteById(taskId);
     }
 
-    public long delete(long id) {
-        return taskRepo.deleteById(id);
+    @Override
+    public List<Task> findAllTasksByUser(Long userId) {
+        return taskRepo.findByUserId(userId);
     }
 
-    public Boolean setTaskComplete(long id) {
-        return taskRepo.setTaskComplete(id);
+    @Override
+    public void closeTask(Long taskId) {
+        setTaskStatus(taskId, true);
     }
 
-    public Boolean setTaskIncomplete(long id) {
-        return taskRepo.setTaskIncomplete(id);
+    private void setTaskStatus(Long taskId, boolean taskStatus) {
+        Task task = getTaskById(taskId);
+        task.setCompleteness(taskStatus);
+        taskRepo.save(task);
     }
 
-    public long priorityChange(long id, Priority priority) {
-        Task task = taskRepo.getById(id);
-        task.setPriority(priority);
-        return taskRepo.update(task);
+    private Task getTaskById(Long taskId) {
+        return taskRepo.findById(taskId)
+                .orElseThrow(() -> new NotFoundException("Task", taskId));
     }
 
-    public List<Task> getTasksByUser(long id) {
-        return taskRepo.getTasksByUser(id);
+    @Override
+    public void openTask(Long taskId) {
+        setTaskStatus(taskId, false);
     }
 
-    public Task getById(Long id) {
-        return taskRepo.getById(id);
+    @Override
+    public void setTaskPriorityByTaskId(Long taskId, Priority taskPriority) {
+        Task task = getTaskById(taskId);
+        task.setPriority(taskPriority);
+        taskRepo.save(task);
     }
 
-    public long update(Task object) {
-        return taskRepo.update(object);
-    }
 
-    public List<Task> getAll() {
-        return taskRepo.getAll();
-    }
+
+
+
+
+
+
+
+
 }

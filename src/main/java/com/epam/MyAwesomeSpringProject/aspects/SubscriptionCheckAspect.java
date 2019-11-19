@@ -24,7 +24,7 @@ public class SubscriptionCheckAspect {
     public Object doSubscriptionCheck(ProceedingJoinPoint joinPoint) throws Throwable {
 
         User user = (User) joinPoint.getArgs()[1];
-        List tasks = ((TaskServiceImpl) joinPoint.getTarget()).getTasksByUser(user.getId());
+        List tasks = ((TaskServiceImpl) joinPoint.getTarget()).findAllTasksByUser(user.getId());
 
         if (user.getSubscription().equals(DigestUtils.md5DigestAsHex(("secret".getBytes()))) && tasks.size() < 10) {
             return joinPoint.proceed();

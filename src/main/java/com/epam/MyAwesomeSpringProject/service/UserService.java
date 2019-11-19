@@ -5,22 +5,9 @@ import java.util.List;
 import java.util.Optional;
 
 public interface UserService {
-
     boolean signUp(User user);
-
-    Optional<Long> signIn(User user);
-
-    User getUserById(Long id);
-
-    List<User> getAllUsers();
-
-    boolean subscribe(User user);
-
-    public long create(User object);
-
-    public User getById(Long id);
-
-    public long update(User object);
-
-    public long deleteById(Long id);
+    long signIn(User user);
+    void subscribe(Long userId);
+    boolean checkSubscription(Long userId);
+    User getUserById(Long userId);
 }

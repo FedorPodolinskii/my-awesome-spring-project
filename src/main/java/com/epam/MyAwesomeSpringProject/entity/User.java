@@ -2,16 +2,19 @@ package com.epam.MyAwesomeSpringProject.entity;
 
 import lombok.*;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
 import java.util.Objects;
 
 @Getter
 @Setter
-@Data
+@Entity
 @RequiredArgsConstructor
 @Builder
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @NoArgsConstructor
 public class User {
+    @Id
     private Long id;
     @NonNull
     private String email;
