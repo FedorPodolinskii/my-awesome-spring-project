@@ -12,27 +12,9 @@ import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
 import javax.sql.DataSource;
 
 @ComponentScan("com.epam")
-@PropertySource("classpath:/db.properties")
 @Configuration
 @EnableAspectJAutoProxy
 public class AppConfig {
-
-    @Value("${url}")
-    private String url;
-    @Value("${username}")
-    private String username;
-    @Value("${password}")
-    private String password;
-
- /*   @Bean
-    public DataSource dataSource() {
-        SimpleDriverDataSource dataSource = new SimpleDriverDataSource();
-        dataSource.setDriver(new Driver());
-        dataSource.setUrl(url);
-        dataSource.setUsername(username);
-        dataSource.setPassword(password);
-        return dataSource;
-    }*/
 
     @Bean
     public ObjectMapper objectMapper() {

@@ -2,7 +2,7 @@ server:
   port: 8885
 spring:
   datasource:
-    url: jdbc:h2:mem:testdb
+    url: jdbc:h2:mem:herokutestdb
     username: hi
     password:
     driver-class-name: org.h2.Driver

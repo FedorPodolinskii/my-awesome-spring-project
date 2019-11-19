@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController("userController")
 @RequestMapping("/user")
@@ -46,7 +47,7 @@ public class UserController {
 
     @GetMapping("/signIn")
     @ResponseStatus(HttpStatus.OK)
-    public boolean signIn(@RequestBody User user) {
+    public Optional<Long> signIn(@RequestBody User user) {
         return userService.signIn(user);
     }
 

@@ -11,12 +11,12 @@ import java.sql.SQLException;
 
 public class TaskRowMapper implements RowMapper<Task> {
     public Task mapRow(ResultSet resultSet, int i) throws SQLException {
-        Long id = resultSet.getLong("ID");
-        Long user_id = resultSet.getLong("USER_ID");
-        String name = resultSet.getString("NAME");
-        String text = resultSet.getString("TEXT");
-        Boolean completeness = resultSet.getBoolean("COMPLETENESS");
-        Priority priority = (Priority) resultSet.getObject("PRIORITY");
+        Long id = resultSet.getLong("task_id");
+        Long user_id = resultSet.getLong("user_id");
+        String name = resultSet.getString("task_name");
+        String text = resultSet.getString("text");
+        Boolean completeness = resultSet.getBoolean("status");
+        Priority priority = (Priority) resultSet.getObject("taskPriority");
         Blob file = resultSet.getBlob("file");
         return Task.builder()
                 .id(id)

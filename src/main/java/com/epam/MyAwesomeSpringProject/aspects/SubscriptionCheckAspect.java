@@ -16,7 +16,7 @@ import java.util.List;
 @Aspect
 public class SubscriptionCheckAspect {
 
-    @Pointcut("execution(* com.epam.service.TaskServiceImpl.createTask*(..))")
+    @Pointcut("execution(* com.epam.MyAwesomeSpringProject.service.TaskServiceImpl.createTask*(..))")
     private void handle() {
     }
 

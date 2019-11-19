@@ -18,14 +18,17 @@ public class TaskRepoImpl implements TaskRepo {
     private String text;
     private Boolean completeness;
     private Priority priority;*/
-
+static final String INSERT = "insert into tasks (user_id, task_name, status, task_priority) values(?,?,?,?)";
+    static final String DELETE = "delete from tasks where task_id = ?";
+    static final String SELECT_ALL_BY_USER = "select * from tasks where user_id = ?";
+    static final String UPDATE_COMPLETENESS = "update users set status=? where task_id=?";
+    static final String SET_TASK_PRIORITY = "update users set taskPriority=? where task_id=?";
+    static final String GET_TASK_COUNT_BY_USER_ID = "select task_id, count(task_id) from tasks GROUP BY task_id";
+    static final String PUT_FILE = "insert into tasks (file) values (?) task_id=?";
     private final String SELECT_BY_ID = "select ID, USER_ID, NAME, TEXT, COMPLETENESS, PRIORITY from TASK where id=?";
-    private final String INSERT = "insert into TASK (ID, USER_ID, NAME, TEXT, COMPLETENESS, PRIORITY ) values (?,?,?,?,?,?)";
     private final String UPDATE = "update TASK set USER_ID=?, NAME=?, TEXT=?, COMPLETENESS=?,PRIORITY=? where id=?";
-    private final String UPDATE_COMPLETENESS = "update task set completeness=? where id=?";
-    private final String DELETE = "delete from TASK where id=?";
     private final String SELECT_ALL = "select * from TASK";
-    private final String SELECT_ALL_BY_USER = "select * from TASK where user_id=?";
+
 
     private final JdbcTemplate jdbcTemplate;
 
@@ -62,7 +65,7 @@ public class TaskRepoImpl implements TaskRepo {
     }
 
     public long deleteById(Long id) {
-        return (long) jdbcTemplate.update(DELETE, id);
+        return jdbcTemplate.update(DELETE, id);
     }
 
     public List<Task> getAll() {

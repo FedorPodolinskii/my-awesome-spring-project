@@ -9,7 +9,7 @@ import java.sql.SQLException;
 public class UserRowMapper implements RowMapper<User> {
 
     public User mapRow(ResultSet resultSet, int i) throws SQLException {
-        long id = resultSet.getLong("ID");
+        long id = resultSet.getLong("user_id");
         String email = resultSet.getString("email");
         String password = resultSet.getString("password");
         String firstName = resultSet.getString("first_name");
